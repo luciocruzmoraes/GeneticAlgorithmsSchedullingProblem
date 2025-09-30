@@ -1,101 +1,187 @@
-from regressao import treinar_modelo_regressao, gerar_dados_historicos
-from genetico import configurar_algoritmo_genetico, executar_algoritmo, gerar_dados_atuais
+import os
+import pandas as pd
+import random
+from genetic_algorithm import execute_genAlgorithm, analyze_solution
 
-def verificar_viabilidade(turmas, alunos_turma, capacidade_salas):
-    turmas_inviaveis = []
-    for turma in turmas:
-        alunos = alunos_turma[turma]
-        if not any(cap >= alunos for cap in capacidade_salas.values()):
-            turmas_inviaveis.append(turma)
-    if turmas_inviaveis:
-        print("⚠️ As seguintes turmas NÃO cabem em nenhuma sala disponível:")
-        for t in turmas_inviaveis:
-            print(f"  - {t} ({alunos_turma[t]} alunos)")
-        return False
-    return True
+random.seed(42)
 
-def verificar_salas_distintas(solucao):
-    salas = [sala for sala, horario in solucao]
-    return len(salas) == len(set(salas))
 
-def mostrar_escala_professores(solucao, turmas, professores):
-    # Mapeia turma → horário
-    turma_horario = {}
-    for i, (sala, horario) in enumerate(solucao):
-        turma = turmas[i]
-        turma_horario[turma] = horario
+def load_inputs():
+    # load CSVs
+    df_classes = pd.read_csv("data/classes_data.csv")
+    df_rooms = pd.read_csv("data/rooms_data.csv")
+    df_teachers = pd.read_csv("data/teachers_data.csv")
 
-    print("\n📅 Escala de horários por professor:")
-    for prof, dados in professores.items():
-        print(f"\nProfessor {prof}:")
-        for turma in dados["turmas"]:
-            horario = turma_horario.get(turma, None)
-            if horario:
-                print(f"  - Turma {turma}: Horário {horario}")
+    # teacher assignments (if exists) - expected columns: teacher_id, class_id or class assignment per subject
+    if os.path.exists("data/teacher_assignments.csv"):
+        df_assign = pd.read_csv("data/teacher_assignments.csv")
+    else:
+        df_assign = None
+
+    return df_classes, df_rooms, df_teachers, df_assign
+
+
+def expand_lessons(df_classes):
+    """
+    Expand classes entries into lesson instances according to lessons_per_week.
+    We'll create lesson ids as: CLASSID::SUBJECT::n
+    Returns:
+      - lesson_instances: list of lesson ids (order important)
+      - lesson_meta: list/dict with info about each lesson (class_id, subject)
+    """
+    lesson_instances = []
+    lesson_meta = []
+    for _, row in df_classes.iterrows():
+        class_id = row["class_id"]
+        subject = row["subject"]
+        lessons = int(row.get("lessons_per_week", 1))
+        for i in range(lessons):
+            lid = f"{class_id}::{subject}::{i+1}"
+            lesson_instances.append(lid)
+            lesson_meta.append({
+                "lesson_id": lid,
+                "class_id": class_id,
+                "subject": subject
+            })
+    return lesson_instances, lesson_meta
+
+
+def build_timeslots(df_schedules):
+    """
+    Create timeslot ids and mapping to human labels.
+    We will use timeslot_id = schedule_id from df_schedules.
+    Also create timeslot_to_shift mapping ('M','A','E') for availability checks.
+    """
+    timeslots = df_schedules["schedule_id"].tolist()
+    timeslot_to_shift = {}
+    schedule_meta = {}
+    for _, r in df_schedules.iterrows():
+        tid = r["schedule_id"]
+        shift = r.get("shift", "")
+        shift_code = "M" if shift.lower().startswith("m") else ("A" if shift.lower().startswith("a") else ("E" if shift.lower().startswith("e") else "?"))
+        timeslot_to_shift[tid] = shift_code
+        # human label: e.g. "M1 Monday 07:30-08:20"
+        label = f"{r.get('period','')}"
+        schedule_meta[tid] = {
+            "weekday": r.get("weekday", ""),
+            "shift": shift,
+            "period": r.get("period", ""),
+            "label": f"{shift[0] if shift else ''}{r.get('period','')}".replace(" ", "")
+        }
+    return timeslots, timeslot_to_shift, schedule_meta
+
+
+def build_rooms_capacity(df_rooms):
+    return dict(zip(df_rooms["room_id"], df_rooms["capacity"]))
+
+
+def build_class_students(df_classes):
+    # class_id -> num_students (assuming class rows duplicated per subject, keep first)
+    class_students = {}
+    for _, row in df_classes.iterrows():
+        cid = row["class_id"]
+        if cid not in class_students:
+            class_students[cid] = int(row["num_students"])
+    return class_students
+
+
+def build_teacher_assignment_map(lesson_instances, df_assignments, df_teachers, df_classes):
+    """
+    Build mapping lesson_index -> teacher_id.
+    If teacher_assignments.csv exists, try to map by class_id. Otherwise
+    create a heuristic mapping: assign each lesson's class to a random teacher whose main subject matches if possible.
+    """
+    teacher_of_lesson = {}
+    teachers_info = {}
+
+    # build teacher info dict
+    for _, r in df_teachers.iterrows():
+        teachers_info[r["teacher_id"]] = {
+            "name": r.get("name"),
+            "available_morning": bool(r.get("available_morning")),
+            "available_afternoon": bool(r.get("available_afternoon")),
+            "available_evening": bool(r.get("available_evening")),
+            "max_workload": int(r.get("max_workload", 40)),
+            "main_subject": r.get("main_subject")
+        }
+
+    # if explicit assignments exist, map class -> teacher (prefer class-level mapping)
+    class_to_teacher = {}
+    if df_assignments is not None:
+        # try to find column class_id or class
+        if "class_id" in df_assignments.columns and "teacher_id" in df_assignments.columns:
+            for _, r in df_assignments.iterrows():
+                class_to_teacher[str(r["class_id"])] = r["teacher_id"]
+
+    # fallback: try to assign by subject match or randomly
+    teacher_by_subject = {}
+    for tid, info in teachers_info.items():
+        subj = info.get("main_subject")
+        if subj:
+            teacher_by_subject.setdefault(subj, []).append(tid)
+
+    # Now map lessons
+    for idx, lesson in enumerate(lesson_instances):
+        class_id, subject, inst = lesson.split("::")
+        # priority: class_to_teacher
+        tid = class_to_teacher.get(class_id, None)
+        if tid is None:
+            # try subject match
+            possible = teacher_by_subject.get(subject, [])
+            if possible:
+                tid = random.choice(possible)
             else:
-                print(f"  - Turma {turma}: Não alocada")
+                tid = random.choice(list(teachers_info.keys()))
+        teacher_of_lesson[idx] = tid
+
+    return teacher_of_lesson, teachers_info
+
 
 def main():
-    # 1. Treinar modelo de regressão com dados históricos simulados
-    df_hist = gerar_dados_historicos()
-    modelo_rl = treinar_modelo_regressao(df_hist)
+    print("=" * 70)
+    print("STEP 1: LOAD INPUTS")
+    print("=" * 70)
+    df_classes, df_rooms, df_teachers, df_assign = load_inputs()
 
-    # 2. Gerar dados atuais simulados
-    dados = gerar_dados_atuais()
+    # ensure schedules exist
+    df_schedules = pd.read_csv("data/schedules_data.csv")
 
-    # 3. Pré-verificação de viabilidade estrutural
-    if not verificar_viabilidade(dados["turmas"], dados["alunos_turma"], dados["capacidade_salas"]):
-        print("Por favor, ajuste os dados para continuar.")
-        return
+    print("\nExpanding lessons (lessons_per_week)...")
+    lesson_instances, lesson_meta = expand_lessons(df_classes)
+    print(f"Total lesson instances to allocate: {len(lesson_instances)}")
 
-    # 4. Configurar o algoritmo genético
-    toolbox = configurar_algoritmo_genetico(
-        dados["turmas"], dados["salas"], dados["horarios"],
-        dados["capacidade_salas"], dados["alunos_turma"], dados["professores"]
+    # build timeslots and meta
+    timeslots, timeslot_to_shift, schedule_meta = build_timeslots(df_schedules)
+
+    # rooms and capacities
+    rooms = df_rooms["room_id"].tolist()
+    rooms_capacity = build_rooms_capacity(df_rooms)
+
+    # class students
+    class_students = build_class_students(df_classes)
+
+    # teacher mapping per lesson and teacher info
+    teacher_of_lesson, teacher_info = build_teacher_assignment_map(lesson_instances, df_assign, df_teachers, df_classes)
+
+    # Execute GA
+    print("\nRunning scheduling GA (this may take a while)...")
+    best, fitness, reasons, mapping = execute_genAlgorithm(
+        rooms=rooms,
+        timeslots=timeslots,
+        lesson_instances=lesson_instances,
+        rooms_capacity=rooms_capacity,
+        class_students=class_students,
+        teacher_of_lesson=teacher_of_lesson,
+        teacher_info=teacher_info,
+        timeslot_to_shift=timeslot_to_shift,
+        ngen=80,
+        npop=150
     )
 
-    # 5. Executar até encontrar uma solução sem violação
-    solucao_encontrada = False
-    tentativas = 0
+    # analyze and print report
+    analyze_solution(best, fitness, reasons, mapping, lesson_instances, df_classes, rooms_capacity, 
+                     { (lesson): teacher_of_lesson[idx] for idx, lesson in enumerate(lesson_instances) }, teacher_info, schedule_meta)
 
-    while not solucao_encontrada:
-        tentativas += 1
-        print(f"\n🔁 Tentativa #{tentativas} - Evoluindo população...")
-
-        hof, log = executar_algoritmo(toolbox, ngen=50, npop=100)
-
-        for ind in hof:
-            if ind.fitness.values[0] == 0.0:  
-                solucao_atual = [(sala, horario) for sala, horario in ind]
-
-                if verificar_salas_distintas(solucao_atual):
-                    solucao_encontrada = True
-                    melhor_resultado = [
-                        (dados["turmas"][i], sala, horario) for i, (sala, horario) in enumerate(solucao_atual)
-                    ]
-                    fitness = ind.fitness.values
-
-                    print("\n✅ Melhor Solução Encontrada:")
-                    for turma, sala, horario in melhor_resultado:
-                        print(f"  Turma {turma} → Sala {sala} - Horário {horario}")
-
-                    print(f"\nFitness (violações, taxa de ocupação global): ({fitness[0]}, {fitness[1]:.2f}%)")
-
-                    print("\n📊 Ocupação por sala:")
-                    alunos_por_sala = {}
-                    for i, (sala, _) in enumerate(solucao_atual):
-                        turma = dados["turmas"][i]
-                        alunos = dados["alunos_turma"][turma]
-                        alunos_por_sala[sala] = alunos_por_sala.get(sala, 0) + alunos
-
-                    for sala, alunos in alunos_por_sala.items():
-                        capacidade = dados["capacidade_salas"].get(sala, 0)
-                        ocupacao = (alunos / capacidade) * 100 if capacidade > 0 else 0.0
-                        print(f"  Sala {sala}: {alunos} alunos / {capacidade} capacidade → {ocupacao:.2f}%")
-
-                    # Mostrar escala de horários por professor
-                    mostrar_escala_professores(solucao_atual, dados["turmas"], dados["professores"])
-                    return
 
 if __name__ == "__main__":
     main()

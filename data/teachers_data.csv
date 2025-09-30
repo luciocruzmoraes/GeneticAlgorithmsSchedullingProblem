@@ -1,0 +1,11 @@
+teacher_id,name,specialty,available_morning,available_afternoon,available_evening,max_workload
+T001,Ana Souza,Matemática,True,False,False,13
+T002,Carlos Silva,Física,True,False,False,16
+T003,Fernanda Lima,Geografia,True,False,False,12
+T004,João Pereira,Geografia,True,False,False,13
+T005,Mariana Costa,Português,True,False,False,19
+T006,Paulo Oliveira,Português,True,False,False,20
+T007,Julia Rodrigues,História,True,False,False,14
+T008,Rafael Mendes,Sociologia,True,False,False,19
+T009,Cláudia Nunes,Ciências,True,False,False,14
+T010,Bruno Rocha,Inglês,True,False,False,20
