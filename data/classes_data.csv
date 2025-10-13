@@ -1,111 +1,139 @@
-class_id,class_name,grade,num_students,subject,lessons_per_week
-C001,6º Ano A,6º Ano,28,Matemática,2
-C001,6º Ano A,6º Ano,28,Português,4
-C001,6º Ano A,6º Ano,28,História,3
-C001,6º Ano A,6º Ano,28,Geografia,3
-C001,6º Ano A,6º Ano,28,Inglês,3
-C001,6º Ano A,6º Ano,28,Ciências,2
-C001,6º Ano A,6º Ano,28,Educação Física,2
-C002,6º Ano B,6º Ano,38,Matemática,2
-C002,6º Ano B,6º Ano,38,Português,2
-C002,6º Ano B,6º Ano,38,História,2
-C002,6º Ano B,6º Ano,38,Geografia,3
-C002,6º Ano B,6º Ano,38,Inglês,3
-C002,6º Ano B,6º Ano,38,Ciências,2
-C002,6º Ano B,6º Ano,38,Educação Física,3
-C003,7º Ano A,7º Ano,38,Matemática,3
-C003,7º Ano A,7º Ano,38,Português,5
-C003,7º Ano A,7º Ano,38,História,4
-C003,7º Ano A,7º Ano,38,Geografia,2
-C003,7º Ano A,7º Ano,38,Inglês,3
-C003,7º Ano A,7º Ano,38,Ciências,5
-C003,7º Ano A,7º Ano,38,Educação Física,4
-C004,7º Ano B,7º Ano,33,Matemática,3
-C004,7º Ano B,7º Ano,33,Português,3
-C004,7º Ano B,7º Ano,33,História,4
-C004,7º Ano B,7º Ano,33,Geografia,2
-C004,7º Ano B,7º Ano,33,Inglês,2
-C004,7º Ano B,7º Ano,33,Ciências,5
-C004,7º Ano B,7º Ano,33,Educação Física,2
-C005,8º Ano A,8º Ano,36,Matemática,4
-C005,8º Ano A,8º Ano,36,Português,4
-C005,8º Ano A,8º Ano,36,História,2
-C005,8º Ano A,8º Ano,36,Geografia,5
-C005,8º Ano A,8º Ano,36,Inglês,2
-C005,8º Ano A,8º Ano,36,Física,5
-C005,8º Ano A,8º Ano,36,Química,2
-C005,8º Ano A,8º Ano,36,Educação Física,4
-C006,8º Ano B,8º Ano,36,Matemática,3
-C006,8º Ano B,8º Ano,36,Português,2
-C006,8º Ano B,8º Ano,36,História,2
-C006,8º Ano B,8º Ano,36,Geografia,3
-C006,8º Ano B,8º Ano,36,Inglês,4
-C006,8º Ano B,8º Ano,36,Física,2
-C006,8º Ano B,8º Ano,36,Química,3
-C006,8º Ano B,8º Ano,36,Educação Física,2
-C007,9º Ano A,9º Ano,37,Matemática,4
-C007,9º Ano A,9º Ano,37,Português,5
-C007,9º Ano A,9º Ano,37,História,4
-C007,9º Ano A,9º Ano,37,Geografia,3
-C007,9º Ano A,9º Ano,37,Inglês,4
-C007,9º Ano A,9º Ano,37,Física,4
-C007,9º Ano A,9º Ano,37,Química,3
-C007,9º Ano A,9º Ano,37,Educação Física,4
-C008,9º Ano B,9º Ano,27,Matemática,3
-C008,9º Ano B,9º Ano,27,Português,3
-C008,9º Ano B,9º Ano,27,História,3
-C008,9º Ano B,9º Ano,27,Geografia,5
-C008,9º Ano B,9º Ano,27,Inglês,5
-C008,9º Ano B,9º Ano,27,Física,4
-C008,9º Ano B,9º Ano,27,Química,3
-C008,9º Ano B,9º Ano,27,Educação Física,4
-C009,1ª Série A,1ª Série,26,Matemática,3
-C009,1ª Série A,1ª Série,26,Português,2
-C009,1ª Série A,1ª Série,26,História,4
-C009,1ª Série A,1ª Série,26,Geografia,5
-C009,1ª Série A,1ª Série,26,Inglês,4
-C009,1ª Série A,1ª Série,26,Física,2
-C009,1ª Série A,1ª Série,26,Química,3
-C009,1ª Série A,1ª Série,26,Biologia,4
-C010,1ª Série B,1ª Série,31,Matemática,5
-C010,1ª Série B,1ª Série,31,Português,5
-C010,1ª Série B,1ª Série,31,História,5
-C010,1ª Série B,1ª Série,31,Geografia,3
-C010,1ª Série B,1ª Série,31,Inglês,4
-C010,1ª Série B,1ª Série,31,Física,3
-C010,1ª Série B,1ª Série,31,Química,3
-C010,1ª Série B,1ª Série,31,Biologia,4
-C011,2ª Série A,2ª Série,38,Matemática,5
-C011,2ª Série A,2ª Série,38,Português,4
-C011,2ª Série A,2ª Série,38,História,3
-C011,2ª Série A,2ª Série,38,Geografia,3
-C011,2ª Série A,2ª Série,38,Inglês,5
-C011,2ª Série A,2ª Série,38,Física,2
-C011,2ª Série A,2ª Série,38,Química,2
-C011,2ª Série A,2ª Série,38,Biologia,2
-C012,2ª Série B,2ª Série,29,Matemática,3
-C012,2ª Série B,2ª Série,29,Português,5
-C012,2ª Série B,2ª Série,29,História,2
-C012,2ª Série B,2ª Série,29,Geografia,5
-C012,2ª Série B,2ª Série,29,Inglês,5
-C012,2ª Série B,2ª Série,29,Física,5
-C012,2ª Série B,2ª Série,29,Química,4
-C012,2ª Série B,2ª Série,29,Biologia,2
-C013,3ª Série A,3ª Série,28,Matemática,4
-C013,3ª Série A,3ª Série,28,Português,4
-C013,3ª Série A,3ª Série,28,História,2
-C013,3ª Série A,3ª Série,28,Geografia,4
-C013,3ª Série A,3ª Série,28,Inglês,5
-C013,3ª Série A,3ª Série,28,Física,3
-C013,3ª Série A,3ª Série,28,Química,5
-C013,3ª Série A,3ª Série,28,Biologia,2
-C013,3ª Série A,3ª Série,28,Sociologia,4
-C014,3ª Série B,3ª Série,30,Matemática,2
-C014,3ª Série B,3ª Série,30,Português,4
-C014,3ª Série B,3ª Série,30,História,3
-C014,3ª Série B,3ª Série,30,Geografia,3
-C014,3ª Série B,3ª Série,30,Inglês,4
-C014,3ª Série B,3ª Série,30,Física,3
-C014,3ª Série B,3ª Série,30,Química,2
-C014,3ª Série B,3ª Série,30,Biologia,4
-C014,3ª Série B,3ª Série,30,Sociologia,5
+class_id,class_name,education_level,num_students,subject,lessons_per_week
+C001,6th Grade A,fundamental,28,Portuguese,2
+C001,6th Grade A,fundamental,28,Mathematics,4
+C001,6th Grade A,fundamental,28,History,3
+C001,6th Grade A,fundamental,28,Geography,3
+C001,6th Grade A,fundamental,28,Science,3
+C001,6th Grade A,fundamental,28,English,2
+C001,6th Grade A,fundamental,28,Arts,2
+C001,6th Grade A,fundamental,28,Physical Education,5
+C001,6th Grade A,fundamental,28,Religious Education,2
+C002,6th Grade B,fundamental,25,Portuguese,2
+C002,6th Grade B,fundamental,25,Mathematics,3
+C002,6th Grade B,fundamental,25,History,3
+C002,6th Grade B,fundamental,25,Geography,2
+C002,6th Grade B,fundamental,25,Science,3
+C002,6th Grade B,fundamental,25,English,5
+C002,6th Grade B,fundamental,25,Arts,3
+C002,6th Grade B,fundamental,25,Physical Education,5
+C002,6th Grade B,fundamental,25,Religious Education,4
+C003,7th Grade A,fundamental,25,Portuguese,3
+C003,7th Grade A,fundamental,25,Mathematics,5
+C003,7th Grade A,fundamental,25,History,4
+C003,7th Grade A,fundamental,25,Geography,4
+C003,7th Grade A,fundamental,25,Science,3
+C003,7th Grade A,fundamental,25,English,3
+C003,7th Grade A,fundamental,25,Arts,4
+C003,7th Grade A,fundamental,25,Physical Education,2
+C003,7th Grade A,fundamental,25,Religious Education,2
+C004,7th Grade B,fundamental,37,Portuguese,2
+C004,7th Grade B,fundamental,37,Mathematics,4
+C004,7th Grade B,fundamental,37,History,4
+C004,7th Grade B,fundamental,37,Geography,4
+C004,7th Grade B,fundamental,37,Science,2
+C004,7th Grade B,fundamental,37,English,5
+C004,7th Grade B,fundamental,37,Arts,2
+C004,7th Grade B,fundamental,37,Physical Education,5
+C004,7th Grade B,fundamental,37,Religious Education,2
+C005,8th Grade A,fundamental,34,Portuguese,4
+C005,8th Grade A,fundamental,34,Mathematics,3
+C005,8th Grade A,fundamental,34,History,2
+C005,8th Grade A,fundamental,34,Geography,2
+C005,8th Grade A,fundamental,34,Science,3
+C005,8th Grade A,fundamental,34,English,4
+C005,8th Grade A,fundamental,34,Arts,2
+C005,8th Grade A,fundamental,34,Physical Education,3
+C005,8th Grade A,fundamental,34,Religious Education,2
+C006,8th Grade B,fundamental,37,Portuguese,4
+C006,8th Grade B,fundamental,37,Mathematics,5
+C006,8th Grade B,fundamental,37,History,4
+C006,8th Grade B,fundamental,37,Geography,3
+C006,8th Grade B,fundamental,37,Science,4
+C006,8th Grade B,fundamental,37,English,4
+C006,8th Grade B,fundamental,37,Arts,3
+C006,8th Grade B,fundamental,37,Physical Education,4
+C006,8th Grade B,fundamental,37,Religious Education,2
+C007,9th Grade A,fundamental,30,Portuguese,3
+C007,9th Grade A,fundamental,30,Mathematics,3
+C007,9th Grade A,fundamental,30,History,5
+C007,9th Grade A,fundamental,30,Geography,5
+C007,9th Grade A,fundamental,30,Science,4
+C007,9th Grade A,fundamental,30,English,3
+C007,9th Grade A,fundamental,30,Arts,4
+C007,9th Grade A,fundamental,30,Physical Education,2
+C007,9th Grade A,fundamental,30,Religious Education,3
+C008,9th Grade B,fundamental,26,Portuguese,4
+C008,9th Grade B,fundamental,26,Mathematics,5
+C008,9th Grade B,fundamental,26,History,4
+C008,9th Grade B,fundamental,26,Geography,2
+C008,9th Grade B,fundamental,26,Science,3
+C008,9th Grade B,fundamental,26,English,4
+C008,9th Grade B,fundamental,26,Arts,3
+C008,9th Grade B,fundamental,26,Physical Education,5
+C008,9th Grade B,fundamental,26,Religious Education,5
+C009,1st Year A,highschool,39,Portuguese,3
+C009,1st Year A,highschool,39,Literature,4
+C009,1st Year A,highschool,39,Mathematics,3
+C009,1st Year A,highschool,39,Physics,3
+C009,1st Year A,highschool,39,Chemistry,4
+C009,1st Year A,highschool,39,Biology,5
+C009,1st Year A,highschool,39,History,5
+C009,1st Year A,highschool,39,Geography,4
+C009,1st Year A,highschool,39,Sociology,3
+C009,1st Year A,highschool,39,Philosophy,3
+C009,1st Year A,highschool,39,English,5
+C010,1st Year B,highschool,27,Portuguese,2
+C010,1st Year B,highschool,27,Literature,2
+C010,1st Year B,highschool,27,Mathematics,3
+C010,1st Year B,highschool,27,Physics,3
+C010,1st Year B,highschool,27,Chemistry,5
+C010,1st Year B,highschool,27,Biology,2
+C010,1st Year B,highschool,27,History,5
+C010,1st Year B,highschool,27,Geography,5
+C010,1st Year B,highschool,27,Sociology,5
+C010,1st Year B,highschool,27,Philosophy,4
+C010,1st Year B,highschool,27,English,2
+C011,2nd Year A,highschool,28,Portuguese,4
+C011,2nd Year A,highschool,28,Literature,4
+C011,2nd Year A,highschool,28,Mathematics,2
+C011,2nd Year A,highschool,28,Physics,4
+C011,2nd Year A,highschool,28,Chemistry,5
+C011,2nd Year A,highschool,28,Biology,3
+C011,2nd Year A,highschool,28,History,5
+C011,2nd Year A,highschool,28,Geography,2
+C011,2nd Year A,highschool,28,Sociology,4
+C011,2nd Year A,highschool,28,Philosophy,3
+C011,2nd Year A,highschool,28,English,2
+C012,2nd Year B,highschool,34,Portuguese,3
+C012,2nd Year B,highschool,34,Literature,3
+C012,2nd Year B,highschool,34,Mathematics,4
+C012,2nd Year B,highschool,34,Physics,3
+C012,2nd Year B,highschool,34,Chemistry,2
+C012,2nd Year B,highschool,34,Biology,4
+C012,2nd Year B,highschool,34,History,5
+C012,2nd Year B,highschool,34,Geography,2
+C012,2nd Year B,highschool,34,Sociology,2
+C012,2nd Year B,highschool,34,Philosophy,4
+C012,2nd Year B,highschool,34,English,4
+C013,3rd Year A,highschool,32,Portuguese,2
+C013,3rd Year A,highschool,32,Literature,3
+C013,3rd Year A,highschool,32,Mathematics,2
+C013,3rd Year A,highschool,32,Physics,2
+C013,3rd Year A,highschool,32,Chemistry,5
+C013,3rd Year A,highschool,32,Biology,2
+C013,3rd Year A,highschool,32,History,3
+C013,3rd Year A,highschool,32,Geography,3
+C013,3rd Year A,highschool,32,Sociology,5
+C013,3rd Year A,highschool,32,Philosophy,3
+C013,3rd Year A,highschool,32,English,4
+C014,3rd Year B,highschool,38,Portuguese,3
+C014,3rd Year B,highschool,38,Literature,3
+C014,3rd Year B,highschool,38,Mathematics,4
+C014,3rd Year B,highschool,38,Physics,5
+C014,3rd Year B,highschool,38,Chemistry,4
+C014,3rd Year B,highschool,38,Biology,5
+C014,3rd Year B,highschool,38,History,5
+C014,3rd Year B,highschool,38,Geography,2
+C014,3rd Year B,highschool,38,Sociology,3
+C014,3rd Year B,highschool,38,Philosophy,3
+C014,3rd Year B,highschool,38,English,2

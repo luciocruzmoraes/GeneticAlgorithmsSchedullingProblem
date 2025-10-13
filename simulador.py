@@ -73,7 +73,7 @@ def generate_classes():
 
 
 # -------------------------
-# 3) Generate Teachers (now with specific period preferences)
+# 3) Generate Teachers (with timeslot preferences)
 # -------------------------
 def generate_teachers():
     teacher_names = [
@@ -116,8 +116,10 @@ def generate_teachers():
         "8th Grade–3rd Year"
     ]
 
-    # All possible morning periods
-    all_periods = ["M1", "M2", "M3", "M4", "M5", "M6"]
+    # Generate all possible timeslots for the week
+    weekdays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    periods = ["M1", "M2", "M3", "M4", "M5", "M6"]
+    all_timeslots = [f"{d}_{p}" for d in weekdays for p in periods]
 
     rows = []
     for tid, name in enumerate(teacher_names, start=1):
@@ -135,18 +137,20 @@ def generate_teachers():
         # Preferred grade range
         preferred_grades_range = random.choice(grade_ranges)
 
-        # Preferred specific time slots (like M1, M3, M5)
-        preferred_periods = random.sample(all_periods, k=random.randint(2, 5))
-        preferred_periods_str = ", ".join(sorted(preferred_periods))
+        # Preferred and available time slots
+        preferred_timeslots = random.sample(all_timeslots, k=random.randint(8, 15))
+        # Available slots include preferred + extras (broader range)
+        available_timeslots = list(set(preferred_timeslots + random.sample(all_timeslots, k=random.randint(10, 20))))
 
         rows.append({
             "teacher_id": f"T{tid:03d}",
             "name": name,
             "education_levels": education_levels,
             "main_subject": specialty,
-            "preferred_periods": preferred_periods_str,  # <--- key change
             "preferred_subjects": ", ".join(preferred_subjects),
             "preferred_grades_range": preferred_grades_range,
+            "preferred_timeslots": ", ".join(preferred_timeslots),
+            "available_timeslots": ", ".join(available_timeslots),
             "preferred_max_classes": random.randint(2, 5),
             "max_workload": random.randint(12, 20)
         })
@@ -188,7 +192,7 @@ def main():
     rooms.to_csv(os.path.join(output_dir, "rooms_data.csv"), index=False)
 
     print(f"Simulated data successfully generated in: {output_dir}/")
-    print("-> Teachers now include preferences for specific time slots (e.g., M1, M3, M5).")
+    print("-> Teachers now have detailed preferences for specific timeslots (e.g., Monday_M1, Wednesday_M3).")
 
 
 if __name__ == "__main__":

@@ -1,11 +1,11 @@
-teacher_id,name,specialty,available_morning,available_afternoon,available_evening,max_workload
-T001,Ana Souza,Matemática,True,False,False,13
-T002,Carlos Silva,Física,True,False,False,16
-T003,Fernanda Lima,Geografia,True,False,False,12
-T004,João Pereira,Geografia,True,False,False,13
-T005,Mariana Costa,Português,True,False,False,19
-T006,Paulo Oliveira,Português,True,False,False,20
-T007,Julia Rodrigues,História,True,False,False,14
-T008,Rafael Mendes,Sociologia,True,False,False,19
-T009,Cláudia Nunes,Ciências,True,False,False,14
-T010,Bruno Rocha,Inglês,True,False,False,20
+teacher_id,name,education_levels,main_subject,preferred_periods,preferred_subjects,preferred_grades_range,preferred_max_classes,max_workload
+T001,Anna Smith,"fundamental, highschool",Biology,"M1, M6","Biology, Chemistry, Environmental Studies",6th–7th Grade,3,13
+T002,Charles Johnson,"fundamental, highschool",Arts,"M2, M3, M4","Arts, Physical Education",8th Grade–3rd Year,3,19
+T003,Laura Brown,highschool,Religious Education,"M4, M6",Religious Education,6th–7th Grade,4,18
+T004,John Davis,"fundamental, highschool",Philosophy,"M1, M3, M4, M5, M6","Philosophy, Sociology, History",6th–7th Grade,3,20
+T005,Maria Clark,"fundamental, highschool",Chemistry,"M1, M2, M3, M4, M5",Chemistry,1st–2nd Year,2,20
+T006,Paul Lewis,"fundamental, highschool",Literature,"M4, M5, M6",Literature,8th–9th Grade,3,18
+T007,Julia Walker,"fundamental, highschool",Arts,"M3, M4, M5, M6","Arts, Physical Education",2nd–3rd Year,5,14
+T008,Robert Hall,"fundamental, highschool",Religious Education,"M3, M6",Religious Education,8th Grade–3rd Year,2,12
+T009,Clara Young,"fundamental, highschool",Geography,"M1, M2","Geography, History, Philosophy",8th Grade–3rd Year,2,15
+T010,Brian Adams,"fundamental, highschool",Philosophy,"M4, M5","Philosophy, Sociology, History",8th Grade–3rd Year,4,16

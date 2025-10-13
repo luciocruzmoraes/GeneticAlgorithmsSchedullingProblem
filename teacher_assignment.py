@@ -11,7 +11,6 @@ def load_teacher_assignments(filename='teacher_assignments.csv'):
         df = pd.read_csv(filename)
         df.columns = df.columns.str.strip()
 
-        # If the file has "assigned" column, filter only assigned classes
         if 'assigned' in df.columns:
             df = df[df['assigned'].str.upper().str.strip() == 'Y']
 
@@ -28,7 +27,12 @@ def load_teacher_assignments(filename='teacher_assignments.csv'):
 
 
 def load_scheduling_data(df_assignments):
-    """Load rooms, schedules, and teacher availability for schedule optimization."""
+    """
+    Load rooms, schedules, and teacher availability (slot-based).
+    Expected teacher file columns:
+    teacher_id, teacher_name, available_timeslots, preferred_timeslots
+    where timeslots are separated by ';'
+    """
     try:
         # Load rooms
         df_rooms = pd.read_csv('rooms_data.csv')
@@ -52,20 +56,27 @@ def load_scheduling_data(df_assignments):
         rooms = df_rooms['room_id'].tolist()
         rooms_capacity = dict(zip(df_rooms['room_id'], df_rooms['capacity']))
 
-        # Schedules
+        # Schedules (e.g., Monday_M1, Monday_M2, ...)
         schedules = df_schedules['schedule_id'].tolist()
 
-        # Teachers with their assigned classes
+        # Teachers with availability and preferences
         teachers = {}
         for teacher_id in df_assignments['teacher_id'].unique():
             teacher_classes = df_assignments[df_assignments['teacher_id'] == teacher_id]['class_id'].tolist()
-            teacher_info = df_teachers[df_teachers['teacher_id'] == teacher_id].iloc[0]
+            tinfo = df_teachers[df_teachers['teacher_id'] == teacher_id].iloc[0]
+
+            # Parse slot lists from CSV (separated by ;)
+            available_slots = []
+            preferred_slots = []
+            if 'available_timeslots' in tinfo:
+                available_slots = [s.strip() for s in str(tinfo['available_timeslots']).split(';') if s.strip()]
+            if 'preferred_timeslots' in tinfo:
+                preferred_slots = [s.strip() for s in str(tinfo['preferred_timeslots']).split(';') if s.strip()]
 
             teachers[teacher_id] = {
                 "classes": teacher_classes,
-                "available_morning": teacher_info['available_morning'],
-                "available_afternoon": teacher_info['available_afternoon'],
-                "available_evening": teacher_info['available_evening']
+                "available_timeslots": available_slots,
+                "preferred_timeslots": preferred_slots
             }
 
         data = {

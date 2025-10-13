@@ -6,91 +6,118 @@ random.seed(42)
 
 
 def create_individual(rooms, timeslots, length):
-    """
-    Individual: list of length `length`, each gene is (room_id, timeslot_id)
-    """
+    """Cria um indivíduo: lista de (room_id, timeslot_id)."""
     return [(random.choice(rooms), random.choice(timeslots)) for _ in range(length)]
 
 
 def evaluate_schedule(individual, lesson_instances, rooms_capacity, class_students,
-                      teacher_of_lesson, teacher_info, timeslot_to_shift):
+                      teacher_of_lesson, teacher_info, class_grade_map):
     """
-    Evaluate a schedule represented by `individual`.
-    Returns (violations, ) as DEAP expects a tuple.
-    Also attaches reasons list to individual (for reporting).
+    Avalia um cronograma representado por `individual`.
+
+    HARD CONSTRAINTS:
+    - Sala deve existir e ter capacidade suficiente
+    - Conflito de sala (mesmo horário/sala)
+    - Professor deve estar disponível no horário específico
+    - Limite de carga horária
+
+    SOFT CONSTRAINTS:
+    - Preferência de horários
+    - Preferência por disciplinas
     """
+
     violations = 0
     reasons = []
 
-    assigned_room_timeslot = defaultdict(list)  # (room, timeslot) -> lessons
-    teacher_load = defaultdict(int)             # teacher_id -> num lessons
+    assigned_room_timeslot = defaultdict(list)
+    teacher_load = defaultdict(int)
+    teacher_schedule = defaultdict(list)
 
     for idx, gene in enumerate(individual):
         room, timeslot = gene
         lesson_id = lesson_instances[idx]
         class_id = lesson_id.split("::")[0]
+        subject = lesson_id.split("::")[1]
         students = class_students[class_id]
 
-        # Sala existe?
+        # ---- Sala existente ----
         if room not in rooms_capacity:
-            violations += 5
-            reasons.append(f"Sala {room} não encontrada no cadastro.")
+            violations += 10
+            reasons.append(f"[HARD] Sala {room} não encontrada no registro.")
             continue
 
-        # Capacidade da sala
+        # ---- Capacidade da sala ----
         if rooms_capacity[room] < students:
             diff = students - rooms_capacity[room]
-            violations += diff
+            violations += diff * 2
             reasons.append(
-                f"Sala {room} (capacidade {rooms_capacity[room]}) recebeu turma {class_id} com {students} alunos."
+                f"[HARD] Sala {room} (capacidade {rooms_capacity[room]}) "
+                f"atribuída à turma {class_id} com {students} alunos."
             )
 
-        # Conflito de sala
         assigned_room_timeslot[(room, timeslot)].append((idx, class_id))
 
-        # Disponibilidade e carga do professor
+        # ---- Professor responsável ----
         teacher_id = teacher_of_lesson.get(idx, None)
         if teacher_id:
             teacher_load[teacher_id] += 1
+            teacher_schedule[teacher_id].append((timeslot, class_id))
             tinfo = teacher_info.get(teacher_id, {})
-            shift_code = timeslot_to_shift.get(timeslot, "?")
-            if shift_code == "M" and not tinfo.get("available_morning", False):
-                violations += 1
+
+            # HARD: Disponibilidade
+            available_slots = tinfo.get("available_timeslots", [])
+            if available_slots and timeslot not in available_slots:
+                violations += 5
                 reasons.append(
-                    f"Professor {tinfo.get('name', teacher_id)} ({teacher_id}) não disponível de manhã, "
-                    f"mas foi alocado para turma {class_id} no horário {timeslot}."
-                )
-            if shift_code == "A" and not tinfo.get("available_afternoon", False):
-                violations += 1
-                reasons.append(
-                    f"Professor {tinfo.get('name', teacher_id)} ({teacher_id}) não disponível à tarde, "
-                    f"mas foi alocado para turma {class_id} no horário {timeslot}."
-                )
-            if shift_code == "E" and not tinfo.get("available_evening", False):
-                violations += 1
-                reasons.append(
-                    f"Professor {tinfo.get('name', teacher_id)} ({teacher_id}) não disponível à noite, "
-                    f"mas foi alocado para turma {class_id} no horário {timeslot}."
+                    f"[HARD] Professor {tinfo.get('name', teacher_id)} indisponível em {timeslot} (Turma {class_id})."
                 )
 
-    # Conflitos de sala
+            # SOFT: Preferência de horários
+            preferred_slots = tinfo.get("preferred_timeslots", [])
+            if preferred_slots and timeslot not in preferred_slots:
+                violations += 0.5
+                reasons.append(
+                    f"[SOFT] Professor {tinfo.get('name', teacher_id)} prefere horários {preferred_slots} "
+                    f"mas foi alocado em {timeslot}."
+                )
+
+            # SOFT: Preferência de disciplinas
+            preferred_subjects = [s.strip() for s in tinfo.get("preferred_subjects", "").split(",") if s.strip()]
+            if preferred_subjects and subject not in preferred_subjects:
+                violations += 0.5
+                reasons.append(
+                    f"[SOFT] Professor {tinfo.get('name', teacher_id)} prefere {preferred_subjects} "
+                    f"mas foi alocado em {subject} ({class_id})."
+                )
+
+    # ---- HARD: Conflitos de sala ----
     for (room, timeslot), lst in assigned_room_timeslot.items():
         if len(lst) > 1:
             involved = ", ".join([f"{c}" for (_, c) in lst])
-            violations += 5 * (len(lst) - 1)
-            reasons.append(
-                f"Conflito de agendamento: sala {room} foi alocada simultaneamente "
-                f"para as turmas {involved} no horário {timeslot}."
-            )
+            violations += 10 * (len(lst) - 1)
+            reasons.append(f"[HARD] Conflito de sala: {room} usada simultaneamente por {involved} em {timeslot}.")
 
-    # Sobrecarga de professor
+    # ---- HARD: Conflitos de professor (mesmo horário) ----
+    for tid, schedule in teacher_schedule.items():
+        timeslot_count = defaultdict(list)
+        for timeslot, class_id in schedule:
+            timeslot_count[timeslot].append(class_id)
+        for timeslot, classes in timeslot_count.items():
+            if len(classes) > 1:
+                violations += 10 * (len(classes) - 1)
+                reasons.append(
+                    f"[HARD] Professor {teacher_info.get(tid, {}).get('name', tid)} com múltiplas turmas "
+                    f"({', '.join(classes)}) no mesmo horário ({timeslot})."
+                )
+
+    # ---- HARD: Carga horária excedida ----
     for tid, load in teacher_load.items():
         maxw = teacher_info.get(tid, {}).get("max_workload", None)
         if maxw is not None and load > maxw:
             diff = load - maxw
-            violations += diff
+            violations += diff * 2
             reasons.append(
-                f"Professor {teacher_info.get(tid, {}).get('name', tid)} ({tid}) excedeu carga ({load} > {maxw})."
+                f"[HARD] Professor {teacher_info.get(tid, {}).get('name', tid)} excedeu carga horária ({load} > {maxw})."
             )
 
     individual.reasons = reasons
@@ -98,18 +125,18 @@ def evaluate_schedule(individual, lesson_instances, rooms_capacity, class_studen
 
 
 def mutate_individual(individual, rooms, timeslots, indpb=0.05):
-    """Mutation: for each gene, with probability indpb, change room or timeslot."""
+    """Mutação: altera sala ou horário com probabilidade indpb."""
     for i in range(len(individual)):
         if random.random() < indpb:
-            if random.random() < 0.6:  # troca horário
+            if random.random() < 0.6:
                 individual[i] = (individual[i][0], random.choice(timeslots))
-            else:  # troca sala
+            else:
                 individual[i] = (random.choice(rooms), individual[i][1])
     return (individual,)
 
 
 def crossover_individual(ind1, ind2):
-    """Two-point crossover on list of genes (tuples)."""
+    """Crossover de dois pontos."""
     if len(ind1) < 2:
         return ind1, ind2
     a = random.randint(1, len(ind1) - 1)
@@ -121,10 +148,11 @@ def crossover_individual(ind1, ind2):
 
 
 def execute_genAlgorithm(rooms, timeslots, lesson_instances, rooms_capacity, class_students,
-                         teacher_of_lesson, teacher_info, timeslot_to_shift,
+                         teacher_of_lesson, teacher_info, class_grade_map,
                          ngen=80, npop=150):
     """
-    Runs GA. Returns (best_individual, fitness_value, reasons, mapping of lesson->assignment)
+    Executa o algoritmo genético.
+    Exibe erros somente se não resolver em até 50 iterações.
     """
     if not hasattr(creator, "FitnessMin"):
         creator.create("FitnessMin", base.Fitness, weights=(-1.0,))
@@ -144,7 +172,7 @@ def execute_genAlgorithm(rooms, timeslots, lesson_instances, rooms_capacity, cla
                      class_students=class_students,
                      teacher_of_lesson=teacher_of_lesson,
                      teacher_info=teacher_info,
-                     timeslot_to_shift=timeslot_to_shift)
+                     class_grade_map=class_grade_map)
 
     pop = toolbox.population(n=npop)
     hof = tools.HallOfFame(1)
@@ -156,12 +184,16 @@ def execute_genAlgorithm(rooms, timeslots, lesson_instances, rooms_capacity, cla
                                        stats=stats, halloffame=hof, verbose=False)
 
     best = hof[0]
-    fitness_value = best.fitness.values[0] if isinstance(best.fitness.values, tuple) else best.fitness.values
-    if isinstance(fitness_value, (list, tuple)):
-        fitness_value = fitness_value[0]
+    fitness_value = best.fitness.values[0]
     reasons = getattr(best, "reasons", [])
-
     mapping = {lesson: best[idx] for idx, lesson in enumerate(lesson_instances)}
+
+    # ⚙️ Só mostra os erros se o algoritmo não zerar as violações em até 50 gerações
+    if fitness_value > 0 and ngen >= 50:
+        print("\n⚠️  O algoritmo não conseguiu eliminar todas as violações em 50 iterações.")
+        print("   Abaixo estão os principais problemas ainda existentes:\n")
+        for reason in reasons[:30]:  # limita para evitar spam
+            print(f" - {reason}")
 
     return best, fitness_value, reasons, mapping
 
@@ -169,34 +201,15 @@ def execute_genAlgorithm(rooms, timeslots, lesson_instances, rooms_capacity, cla
 def analyze_solution(best, fitness, reasons, mapping, lesson_instances, df_classes,
                      rooms_capacity, teacher_assignments, teacher_info, schedule_meta):
     """
-    Print detailed report:
-      - Problemas de Sala
-      - Conflitos de agendamento
-      - Problemas de Professores
-      - Resumo de alocação por turma (inclui série/ano)
+    Gera relatório detalhado sem campo 'grade'.
     """
-    problemas_sala = [r for r in reasons if ("Sala " in r or "capacidade" in r)]
-    problemas_conflito = [r for r in reasons if "Conflito" in r or "conflito" in r]
-    problemas_professor = [r for r in reasons if "Professor" in r or "professor" in r]
-
     print("\n=== RELATÓRIO DE ALOCAÇÃO ===\n")
-
-    print("Problemas de Sala:")
-    print(" - Nenhum problema encontrado." if not problemas_sala else "\n".join(f" - {r}" for r in problemas_sala))
-
-    print("\nConflitos de Agendamento:")
-    print(" - Nenhum conflito encontrado." if not problemas_conflito else "\n".join(f" - {r}" for r in problemas_conflito))
-
-    print("\nProblemas de Professores:")
-    print(" - Nenhum problema encontrado." if not problemas_professor else "\n".join(f" - {r}" for r in problemas_professor))
-
-    print("\nResumo de Alocação Semanal por Turma:\n")
 
     schedule_by_class = {}
     for lesson in lesson_instances:
         class_id, subject, inst = lesson.split("::")
         room, timeslot = mapping[lesson]
-        meta = schedule_meta.get(timeslot, {"weekday": "?", "shift": "?", "period": timeslot, "label": timeslot})
+        meta = schedule_meta.get(timeslot, {"weekday": "?", "period": timeslot, "label": timeslot})
         teacher = teacher_assignments.get(lesson, None)
         teacher_name = teacher_info.get(teacher, {}).get("name", teacher) if teacher else "N/A"
 
@@ -205,7 +218,6 @@ def analyze_solution(best, fitness, reasons, mapping, lesson_instances, df_class
             "room": room,
             "timeslot": timeslot,
             "weekday": meta.get("weekday"),
-            "shift": meta.get("shift"),
             "period": meta.get("period"),
             "label": meta.get("label"),
             "teacher": teacher_name
@@ -215,17 +227,15 @@ def analyze_solution(best, fitness, reasons, mapping, lesson_instances, df_class
         row = df_classes[df_classes["class_id"] == class_id]
         if not row.empty:
             class_name = row.iloc[0].get("class_name", class_id)
-            grade = row.iloc[0].get("grade", "?")
             num_students = row.iloc[0].get("num_students", "N/A")
         else:
             class_name = class_id
-            grade = "?"
             num_students = "N/A"
 
-        print(f"Turma {class_id} ({class_name}) - {grade} - {num_students} alunos")
+        print(f"Turma {class_id} ({class_name}) - {num_students} alunos")
         slots_sorted = sorted(slots, key=lambda s: (weekday_order(s["weekday"]), s["label"]))
         for s in slots_sorted:
-            print(f"   - {s['weekday']} | {s['label']} | {s['shift']} | Sala: {s['room']} | "
+            print(f"   - {s['weekday']} | {s['label']} | Sala: {s['room']} | "
                   f"Disciplina: {s['subject']} | Prof.: {s['teacher']}")
         print("-" * 70)
 
