@@ -1,11 +1,11 @@
-teacher_id,name,education_levels,main_subject,preferred_periods,preferred_subjects,preferred_grades_range,preferred_max_classes,max_workload
-T001,Anna Smith,"fundamental, highschool",Biology,"M1, M6","Biology, Chemistry, Environmental Studies",6th–7th Grade,3,13
-T002,Charles Johnson,"fundamental, highschool",Arts,"M2, M3, M4","Arts, Physical Education",8th Grade–3rd Year,3,19
-T003,Laura Brown,highschool,Religious Education,"M4, M6",Religious Education,6th–7th Grade,4,18
-T004,John Davis,"fundamental, highschool",Philosophy,"M1, M3, M4, M5, M6","Philosophy, Sociology, History",6th–7th Grade,3,20
-T005,Maria Clark,"fundamental, highschool",Chemistry,"M1, M2, M3, M4, M5",Chemistry,1st–2nd Year,2,20
-T006,Paul Lewis,"fundamental, highschool",Literature,"M4, M5, M6",Literature,8th–9th Grade,3,18
-T007,Julia Walker,"fundamental, highschool",Arts,"M3, M4, M5, M6","Arts, Physical Education",2nd–3rd Year,5,14
-T008,Robert Hall,"fundamental, highschool",Religious Education,"M3, M6",Religious Education,8th Grade–3rd Year,2,12
-T009,Clara Young,"fundamental, highschool",Geography,"M1, M2","Geography, History, Philosophy",8th Grade–3rd Year,2,15
-T010,Brian Adams,"fundamental, highschool",Philosophy,"M4, M5","Philosophy, Sociology, History",8th Grade–3rd Year,4,16
+teacher_id,name,main_subject,favorite_subjects,available_morning,available_afternoon,available_evening,max_workload
+T001,Ana Souza,Química,Português,True,True,True,13
+T002,Carlos Pereira,Literatura,Física,True,False,True,20
+T003,Juliana Costa,Geografia,"Química, Biologia, Literatura",False,False,False,18
+T004,João Almeida,Geografia,"Matemática, Filosofia",True,False,True,12
+T005,Mariana Silva,Matemática,"Matemática, Literatura",True,False,False,15
+T006,Paulo Rocha,Química,Sociologia,False,True,True,16
+T007,Lucas Martins,Inglês,Inglês,True,True,False,14
+T008,Beatriz Santos,História,"Artes, Ciências",True,False,True,15
+T009,Rafael Oliveira,Inglês,"Ciências, Matemática",False,True,True,19
+T010,Clara Mendes,Química,"História, Ciências",True,True,False,18

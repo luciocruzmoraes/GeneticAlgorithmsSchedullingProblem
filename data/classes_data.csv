@@ -1,139 +1,353 @@
 class_id,class_name,education_level,num_students,subject,lessons_per_week
-C001,6th Grade A,fundamental,28,Portuguese,2
-C001,6th Grade A,fundamental,28,Mathematics,4
-C001,6th Grade A,fundamental,28,History,3
-C001,6th Grade A,fundamental,28,Geography,3
-C001,6th Grade A,fundamental,28,Science,3
-C001,6th Grade A,fundamental,28,English,2
-C001,6th Grade A,fundamental,28,Arts,2
-C001,6th Grade A,fundamental,28,Physical Education,5
-C001,6th Grade A,fundamental,28,Religious Education,2
-C002,6th Grade B,fundamental,25,Portuguese,2
-C002,6th Grade B,fundamental,25,Mathematics,3
-C002,6th Grade B,fundamental,25,History,3
-C002,6th Grade B,fundamental,25,Geography,2
-C002,6th Grade B,fundamental,25,Science,3
-C002,6th Grade B,fundamental,25,English,5
-C002,6th Grade B,fundamental,25,Arts,3
-C002,6th Grade B,fundamental,25,Physical Education,5
-C002,6th Grade B,fundamental,25,Religious Education,4
-C003,7th Grade A,fundamental,25,Portuguese,3
-C003,7th Grade A,fundamental,25,Mathematics,5
-C003,7th Grade A,fundamental,25,History,4
-C003,7th Grade A,fundamental,25,Geography,4
-C003,7th Grade A,fundamental,25,Science,3
-C003,7th Grade A,fundamental,25,English,3
-C003,7th Grade A,fundamental,25,Arts,4
-C003,7th Grade A,fundamental,25,Physical Education,2
-C003,7th Grade A,fundamental,25,Religious Education,2
-C004,7th Grade B,fundamental,37,Portuguese,2
-C004,7th Grade B,fundamental,37,Mathematics,4
-C004,7th Grade B,fundamental,37,History,4
-C004,7th Grade B,fundamental,37,Geography,4
-C004,7th Grade B,fundamental,37,Science,2
-C004,7th Grade B,fundamental,37,English,5
-C004,7th Grade B,fundamental,37,Arts,2
-C004,7th Grade B,fundamental,37,Physical Education,5
-C004,7th Grade B,fundamental,37,Religious Education,2
-C005,8th Grade A,fundamental,34,Portuguese,4
-C005,8th Grade A,fundamental,34,Mathematics,3
-C005,8th Grade A,fundamental,34,History,2
-C005,8th Grade A,fundamental,34,Geography,2
-C005,8th Grade A,fundamental,34,Science,3
-C005,8th Grade A,fundamental,34,English,4
-C005,8th Grade A,fundamental,34,Arts,2
-C005,8th Grade A,fundamental,34,Physical Education,3
-C005,8th Grade A,fundamental,34,Religious Education,2
-C006,8th Grade B,fundamental,37,Portuguese,4
-C006,8th Grade B,fundamental,37,Mathematics,5
-C006,8th Grade B,fundamental,37,History,4
-C006,8th Grade B,fundamental,37,Geography,3
-C006,8th Grade B,fundamental,37,Science,4
-C006,8th Grade B,fundamental,37,English,4
-C006,8th Grade B,fundamental,37,Arts,3
-C006,8th Grade B,fundamental,37,Physical Education,4
-C006,8th Grade B,fundamental,37,Religious Education,2
-C007,9th Grade A,fundamental,30,Portuguese,3
-C007,9th Grade A,fundamental,30,Mathematics,3
-C007,9th Grade A,fundamental,30,History,5
-C007,9th Grade A,fundamental,30,Geography,5
-C007,9th Grade A,fundamental,30,Science,4
-C007,9th Grade A,fundamental,30,English,3
-C007,9th Grade A,fundamental,30,Arts,4
-C007,9th Grade A,fundamental,30,Physical Education,2
-C007,9th Grade A,fundamental,30,Religious Education,3
-C008,9th Grade B,fundamental,26,Portuguese,4
-C008,9th Grade B,fundamental,26,Mathematics,5
-C008,9th Grade B,fundamental,26,History,4
-C008,9th Grade B,fundamental,26,Geography,2
-C008,9th Grade B,fundamental,26,Science,3
-C008,9th Grade B,fundamental,26,English,4
-C008,9th Grade B,fundamental,26,Arts,3
-C008,9th Grade B,fundamental,26,Physical Education,5
-C008,9th Grade B,fundamental,26,Religious Education,5
-C009,1st Year A,highschool,39,Portuguese,3
-C009,1st Year A,highschool,39,Literature,4
-C009,1st Year A,highschool,39,Mathematics,3
-C009,1st Year A,highschool,39,Physics,3
-C009,1st Year A,highschool,39,Chemistry,4
-C009,1st Year A,highschool,39,Biology,5
-C009,1st Year A,highschool,39,History,5
-C009,1st Year A,highschool,39,Geography,4
-C009,1st Year A,highschool,39,Sociology,3
-C009,1st Year A,highschool,39,Philosophy,3
-C009,1st Year A,highschool,39,English,5
-C010,1st Year B,highschool,27,Portuguese,2
-C010,1st Year B,highschool,27,Literature,2
-C010,1st Year B,highschool,27,Mathematics,3
-C010,1st Year B,highschool,27,Physics,3
-C010,1st Year B,highschool,27,Chemistry,5
-C010,1st Year B,highschool,27,Biology,2
-C010,1st Year B,highschool,27,History,5
-C010,1st Year B,highschool,27,Geography,5
-C010,1st Year B,highschool,27,Sociology,5
-C010,1st Year B,highschool,27,Philosophy,4
-C010,1st Year B,highschool,27,English,2
-C011,2nd Year A,highschool,28,Portuguese,4
-C011,2nd Year A,highschool,28,Literature,4
-C011,2nd Year A,highschool,28,Mathematics,2
-C011,2nd Year A,highschool,28,Physics,4
-C011,2nd Year A,highschool,28,Chemistry,5
-C011,2nd Year A,highschool,28,Biology,3
-C011,2nd Year A,highschool,28,History,5
-C011,2nd Year A,highschool,28,Geography,2
-C011,2nd Year A,highschool,28,Sociology,4
-C011,2nd Year A,highschool,28,Philosophy,3
-C011,2nd Year A,highschool,28,English,2
-C012,2nd Year B,highschool,34,Portuguese,3
-C012,2nd Year B,highschool,34,Literature,3
-C012,2nd Year B,highschool,34,Mathematics,4
-C012,2nd Year B,highschool,34,Physics,3
-C012,2nd Year B,highschool,34,Chemistry,2
-C012,2nd Year B,highschool,34,Biology,4
-C012,2nd Year B,highschool,34,History,5
-C012,2nd Year B,highschool,34,Geography,2
-C012,2nd Year B,highschool,34,Sociology,2
-C012,2nd Year B,highschool,34,Philosophy,4
-C012,2nd Year B,highschool,34,English,4
-C013,3rd Year A,highschool,32,Portuguese,2
-C013,3rd Year A,highschool,32,Literature,3
-C013,3rd Year A,highschool,32,Mathematics,2
-C013,3rd Year A,highschool,32,Physics,2
-C013,3rd Year A,highschool,32,Chemistry,5
-C013,3rd Year A,highschool,32,Biology,2
-C013,3rd Year A,highschool,32,History,3
-C013,3rd Year A,highschool,32,Geography,3
-C013,3rd Year A,highschool,32,Sociology,5
-C013,3rd Year A,highschool,32,Philosophy,3
-C013,3rd Year A,highschool,32,English,4
-C014,3rd Year B,highschool,38,Portuguese,3
-C014,3rd Year B,highschool,38,Literature,3
-C014,3rd Year B,highschool,38,Mathematics,4
-C014,3rd Year B,highschool,38,Physics,5
-C014,3rd Year B,highschool,38,Chemistry,4
-C014,3rd Year B,highschool,38,Biology,5
-C014,3rd Year B,highschool,38,History,5
-C014,3rd Year B,highschool,38,Geography,2
-C014,3rd Year B,highschool,38,Sociology,3
-C014,3rd Year B,highschool,38,Philosophy,3
-C014,3rd Year B,highschool,38,English,2
+C001,6ºA,6º Ano,28,Portuguese,2
+C001,6ºA,6º Ano,28,Mathematics,4
+C001,6ºA,6º Ano,28,History,3
+C001,6ºA,6º Ano,28,Geography,3
+C001,6ºA,6º Ano,28,Science,3
+C001,6ºA,6º Ano,28,English,2
+C001,6ºA,6º Ano,28,Arts,2
+C001,6ºA,6º Ano,28,Physical Education,5
+C002,6ºB,6º Ano,26,Portuguese,2
+C002,6ºB,6º Ano,26,Mathematics,2
+C002,6ºB,6º Ano,26,History,3
+C002,6ºB,6º Ano,26,Geography,3
+C002,6ºB,6º Ano,26,Science,2
+C002,6ºB,6º Ano,26,English,3
+C002,6ºB,6º Ano,26,Arts,5
+C002,6ºB,6º Ano,26,Physical Education,3
+C003,6ºC,6º Ano,39,Portuguese,4
+C003,6ºC,6º Ano,39,Mathematics,2
+C003,6ºC,6º Ano,39,History,3
+C003,6ºC,6º Ano,39,Geography,5
+C003,6ºC,6º Ano,39,Science,4
+C003,6ºC,6º Ano,39,English,4
+C003,6ºC,6º Ano,39,Arts,3
+C003,6ºC,6º Ano,39,Physical Education,3
+C004,6ºD,6º Ano,35,Portuguese,2
+C004,6ºD,6º Ano,35,Mathematics,2
+C004,6ºD,6º Ano,35,History,5
+C004,6ºD,6º Ano,35,Geography,2
+C004,6ºD,6º Ano,35,Science,4
+C004,6ºD,6º Ano,35,English,4
+C004,6ºD,6º Ano,35,Arts,4
+C004,6ºD,6º Ano,35,Physical Education,2
+C005,6ºE,6º Ano,39,Portuguese,2
+C005,6ºE,6º Ano,39,Mathematics,5
+C005,6ºE,6º Ano,39,History,2
+C005,6ºE,6º Ano,39,Geography,4
+C005,6ºE,6º Ano,39,Science,4
+C005,6ºE,6º Ano,39,English,3
+C005,6ºE,6º Ano,39,Arts,2
+C005,6ºE,6º Ano,39,Physical Education,2
+C006,6ºF,6º Ano,30,Portuguese,4
+C006,6ºF,6º Ano,30,Mathematics,2
+C006,6ºF,6º Ano,30,History,3
+C006,6ºF,6º Ano,30,Geography,2
+C006,6ºF,6º Ano,30,Science,5
+C006,6ºF,6º Ano,30,English,4
+C006,6ºF,6º Ano,30,Arts,5
+C006,6ºF,6º Ano,30,Physical Education,4
+C007,7ºA,7º Ano,30,Portuguese,4
+C007,7ºA,7º Ano,30,Mathematics,4
+C007,7ºA,7º Ano,30,History,3
+C007,7ºA,7º Ano,30,Geography,4
+C007,7ºA,7º Ano,30,Science,2
+C007,7ºA,7º Ano,30,English,3
+C007,7ºA,7º Ano,30,Arts,3
+C007,7ºA,7º Ano,30,Physical Education,3
+C008,7ºB,7º Ano,39,Portuguese,5
+C008,7ºB,7º Ano,39,Mathematics,4
+C008,7ºB,7º Ano,39,History,3
+C008,7ºB,7º Ano,39,Geography,4
+C008,7ºB,7º Ano,39,Science,2
+C008,7ºB,7º Ano,39,English,3
+C008,7ºB,7º Ano,39,Arts,2
+C008,7ºB,7º Ano,39,Physical Education,4
+C009,7ºC,7º Ano,37,Portuguese,4
+C009,7ºC,7º Ano,37,Mathematics,2
+C009,7ºC,7º Ano,37,History,3
+C009,7ºC,7º Ano,37,Geography,4
+C009,7ºC,7º Ano,37,Science,3
+C009,7ºC,7º Ano,37,English,5
+C009,7ºC,7º Ano,37,Arts,5
+C009,7ºC,7º Ano,37,Physical Education,5
+C010,7ºD,7º Ano,29,Portuguese,4
+C010,7ºD,7º Ano,29,Mathematics,3
+C010,7ºD,7º Ano,29,History,3
+C010,7ºD,7º Ano,29,Geography,4
+C010,7ºD,7º Ano,29,Science,5
+C010,7ºD,7º Ano,29,English,5
+C010,7ºD,7º Ano,29,Arts,4
+C010,7ºD,7º Ano,29,Physical Education,3
+C011,7ºE,7º Ano,20,Portuguese,5
+C011,7ºE,7º Ano,20,Mathematics,2
+C011,7ºE,7º Ano,20,History,2
+C011,7ºE,7º Ano,20,Geography,2
+C011,7ºE,7º Ano,20,Science,3
+C011,7ºE,7º Ano,20,English,3
+C011,7ºE,7º Ano,20,Arts,5
+C011,7ºE,7º Ano,20,Physical Education,2
+C012,8ºA,8º Ano,37,Portuguese,5
+C012,8ºA,8º Ano,37,Mathematics,5
+C012,8ºA,8º Ano,37,History,4
+C012,8ºA,8º Ano,37,Geography,2
+C012,8ºA,8º Ano,37,Science,2
+C012,8ºA,8º Ano,37,English,4
+C012,8ºA,8º Ano,37,Arts,4
+C012,8ºA,8º Ano,37,Physical Education,2
+C013,8ºB,8º Ano,34,Portuguese,5
+C013,8ºB,8º Ano,34,Mathematics,3
+C013,8ºB,8º Ano,34,History,5
+C013,8ºB,8º Ano,34,Geography,2
+C013,8ºB,8º Ano,34,Science,4
+C013,8ºB,8º Ano,34,English,3
+C013,8ºB,8º Ano,34,Arts,2
+C013,8ºB,8º Ano,34,Physical Education,4
+C014,8ºC,8º Ano,31,Portuguese,3
+C014,8ºC,8º Ano,31,Mathematics,4
+C014,8ºC,8º Ano,31,History,3
+C014,8ºC,8º Ano,31,Geography,2
+C014,8ºC,8º Ano,31,Science,4
+C014,8ºC,8º Ano,31,English,5
+C014,8ºC,8º Ano,31,Arts,2
+C014,8ºC,8º Ano,31,Physical Education,2
+C015,8ºD,8º Ano,36,Portuguese,4
+C015,8ºD,8º Ano,36,Mathematics,3
+C015,8ºD,8º Ano,36,History,2
+C015,8ºD,8º Ano,36,Geography,3
+C015,8ºD,8º Ano,36,Science,2
+C015,8ºD,8º Ano,36,English,2
+C015,8ºD,8º Ano,36,Arts,5
+C015,8ºD,8º Ano,36,Physical Education,2
+C016,8ºE,8º Ano,29,Portuguese,3
+C016,8ºE,8º Ano,29,Mathematics,5
+C016,8ºE,8º Ano,29,History,3
+C016,8ºE,8º Ano,29,Geography,4
+C016,8ºE,8º Ano,29,Science,5
+C016,8ºE,8º Ano,29,English,3
+C016,8ºE,8º Ano,29,Arts,3
+C016,8ºE,8º Ano,29,Physical Education,4
+C017,8ºF,8º Ano,37,Portuguese,4
+C017,8ºF,8º Ano,37,Mathematics,5
+C017,8ºF,8º Ano,37,History,5
+C017,8ºF,8º Ano,37,Geography,2
+C017,8ºF,8º Ano,37,Science,3
+C017,8ºF,8º Ano,37,English,3
+C017,8ºF,8º Ano,37,Arts,2
+C017,8ºF,8º Ano,37,Physical Education,4
+C018,8ºG,8º Ano,25,Portuguese,3
+C018,8ºG,8º Ano,25,Mathematics,3
+C018,8ºG,8º Ano,25,History,2
+C018,8ºG,8º Ano,25,Geography,2
+C018,8ºG,8º Ano,25,Science,2
+C018,8ºG,8º Ano,25,English,3
+C018,8ºG,8º Ano,25,Arts,2
+C018,8ºG,8º Ano,25,Physical Education,2
+C019,8ºH,8º Ano,18,Portuguese,2
+C019,8ºH,8º Ano,18,Mathematics,3
+C019,8ºH,8º Ano,18,History,4
+C019,8ºH,8º Ano,18,Geography,5
+C019,8ºH,8º Ano,18,Science,3
+C019,8ºH,8º Ano,18,English,3
+C019,8ºH,8º Ano,18,Arts,5
+C019,8ºH,8º Ano,18,Physical Education,3
+C020,9ºA,9º Ano,40,Portuguese,5
+C020,9ºA,9º Ano,40,Mathematics,3
+C020,9ºA,9º Ano,40,History,2
+C020,9ºA,9º Ano,40,Geography,2
+C020,9ºA,9º Ano,40,Science,5
+C020,9ºA,9º Ano,40,English,4
+C020,9ºA,9º Ano,40,Arts,5
+C020,9ºA,9º Ano,40,Physical Education,5
+C021,9ºB,9º Ano,39,Portuguese,2
+C021,9ºB,9º Ano,39,Mathematics,2
+C021,9ºB,9º Ano,39,History,2
+C021,9ºB,9º Ano,39,Geography,5
+C021,9ºB,9º Ano,39,Science,4
+C021,9ºB,9º Ano,39,English,2
+C021,9ºB,9º Ano,39,Arts,3
+C021,9ºB,9º Ano,39,Physical Education,3
+C022,9ºC,9º Ano,31,Portuguese,5
+C022,9ºC,9º Ano,31,Mathematics,3
+C022,9ºC,9º Ano,31,History,5
+C022,9ºC,9º Ano,31,Geography,3
+C022,9ºC,9º Ano,31,Science,4
+C022,9ºC,9º Ano,31,English,5
+C022,9ºC,9º Ano,31,Arts,3
+C022,9ºC,9º Ano,31,Physical Education,2
+C023,9ºD,9º Ano,39,Portuguese,2
+C023,9ºD,9º Ano,39,Mathematics,2
+C023,9ºD,9º Ano,39,History,2
+C023,9ºD,9º Ano,39,Geography,2
+C023,9ºD,9º Ano,39,Science,3
+C023,9ºD,9º Ano,39,English,3
+C023,9ºD,9º Ano,39,Arts,5
+C023,9ºD,9º Ano,39,Physical Education,5
+C024,9ºE,9º Ano,40,Portuguese,3
+C024,9ºE,9º Ano,40,Mathematics,5
+C024,9ºE,9º Ano,40,History,2
+C024,9ºE,9º Ano,40,Geography,3
+C024,9ºE,9º Ano,40,Science,5
+C024,9ºE,9º Ano,40,English,2
+C024,9ºE,9º Ano,40,Arts,5
+C024,9ºE,9º Ano,40,Physical Education,4
+C025,9ºF,9º Ano,39,Portuguese,4
+C025,9ºF,9º Ano,39,Mathematics,5
+C025,9ºF,9º Ano,39,History,5
+C025,9ºF,9º Ano,39,Geography,3
+C025,9ºF,9º Ano,39,Science,3
+C025,9ºF,9º Ano,39,English,4
+C025,9ºF,9º Ano,39,Arts,3
+C025,9ºF,9º Ano,39,Physical Education,2
+C026,9ºG,9º Ano,26,Portuguese,4
+C026,9ºG,9º Ano,26,Mathematics,2
+C026,9ºG,9º Ano,26,History,2
+C026,9ºG,9º Ano,26,Geography,5
+C026,9ºG,9º Ano,26,Science,3
+C026,9ºG,9º Ano,26,English,2
+C026,9ºG,9º Ano,26,Arts,2
+C026,9ºG,9º Ano,26,Physical Education,3
+C027,9ºH,9º Ano,10,Portuguese,2
+C027,9ºH,9º Ano,10,Mathematics,3
+C027,9ºH,9º Ano,10,History,5
+C027,9ºH,9º Ano,10,Geography,2
+C027,9ºH,9º Ano,10,Science,3
+C027,9ºH,9º Ano,10,English,2
+C027,9ºH,9º Ano,10,Arts,2
+C027,9ºH,9º Ano,10,Physical Education,5
+C028,1ª Série EM A,1ª Série EM,35,Portuguese,4
+C028,1ª Série EM A,1ª Série EM,35,Mathematics,3
+C028,1ª Série EM A,1ª Série EM,35,History,4
+C028,1ª Série EM A,1ª Série EM,35,Geography,3
+C028,1ª Série EM A,1ª Série EM,35,Science,4
+C028,1ª Série EM A,1ª Série EM,35,English,5
+C028,1ª Série EM A,1ª Série EM,35,Arts,3
+C028,1ª Série EM A,1ª Série EM,35,Physical Education,4
+C029,1ª Série EM B,1ª Série EM,39,Portuguese,4
+C029,1ª Série EM B,1ª Série EM,39,Mathematics,2
+C029,1ª Série EM B,1ª Série EM,39,History,2
+C029,1ª Série EM B,1ª Série EM,39,Geography,5
+C029,1ª Série EM B,1ª Série EM,39,Science,2
+C029,1ª Série EM B,1ª Série EM,39,English,2
+C029,1ª Série EM B,1ª Série EM,39,Arts,3
+C029,1ª Série EM B,1ª Série EM,39,Physical Education,4
+C030,1ª Série EM C,1ª Série EM,29,Portuguese,4
+C030,1ª Série EM C,1ª Série EM,29,Mathematics,2
+C030,1ª Série EM C,1ª Série EM,29,History,3
+C030,1ª Série EM C,1ª Série EM,29,Geography,4
+C030,1ª Série EM C,1ª Série EM,29,Science,4
+C030,1ª Série EM C,1ª Série EM,29,English,3
+C030,1ª Série EM C,1ª Série EM,29,Arts,5
+C030,1ª Série EM C,1ª Série EM,29,Physical Education,4
+C031,1ª Série EM D,1ª Série EM,25,Portuguese,4
+C031,1ª Série EM D,1ª Série EM,25,Mathematics,2
+C031,1ª Série EM D,1ª Série EM,25,History,3
+C031,1ª Série EM D,1ª Série EM,25,Geography,4
+C031,1ª Série EM D,1ª Série EM,25,Science,2
+C031,1ª Série EM D,1ª Série EM,25,English,2
+C031,1ª Série EM D,1ª Série EM,25,Arts,3
+C031,1ª Série EM D,1ª Série EM,25,Physical Education,4
+C032,1ª Série EM E,1ª Série EM,34,Portuguese,3
+C032,1ª Série EM E,1ª Série EM,34,Mathematics,4
+C032,1ª Série EM E,1ª Série EM,34,History,3
+C032,1ª Série EM E,1ª Série EM,34,Geography,4
+C032,1ª Série EM E,1ª Série EM,34,Science,5
+C032,1ª Série EM E,1ª Série EM,34,English,4
+C032,1ª Série EM E,1ª Série EM,34,Arts,2
+C032,1ª Série EM E,1ª Série EM,34,Physical Education,2
+C033,1ª Série EM F,1ª Série EM,38,Portuguese,4
+C033,1ª Série EM F,1ª Série EM,38,Mathematics,2
+C033,1ª Série EM F,1ª Série EM,38,History,2
+C033,1ª Série EM F,1ª Série EM,38,Geography,4
+C033,1ª Série EM F,1ª Série EM,38,Science,3
+C033,1ª Série EM F,1ª Série EM,38,English,4
+C033,1ª Série EM F,1ª Série EM,38,Arts,3
+C033,1ª Série EM F,1ª Série EM,38,Physical Education,5
+C034,1ª Série EM G,1ª Série EM,28,Portuguese,2
+C034,1ª Série EM G,1ª Série EM,28,Mathematics,2
+C034,1ª Série EM G,1ª Série EM,28,History,2
+C034,1ª Série EM G,1ª Série EM,28,Geography,3
+C034,1ª Série EM G,1ª Série EM,28,Science,2
+C034,1ª Série EM G,1ª Série EM,28,English,4
+C034,1ª Série EM G,1ª Série EM,28,Arts,3
+C034,1ª Série EM G,1ª Série EM,28,Physical Education,5
+C035,2ª Série EM A,2ª Série EM,29,Portuguese,2
+C035,2ª Série EM A,2ª Série EM,29,Mathematics,4
+C035,2ª Série EM A,2ª Série EM,29,History,4
+C035,2ª Série EM A,2ª Série EM,29,Geography,2
+C035,2ª Série EM A,2ª Série EM,29,Science,4
+C035,2ª Série EM A,2ª Série EM,29,English,3
+C035,2ª Série EM A,2ª Série EM,29,Arts,3
+C035,2ª Série EM A,2ª Série EM,29,Physical Education,2
+C036,2ª Série EM B,2ª Série EM,36,Portuguese,5
+C036,2ª Série EM B,2ª Série EM,36,Mathematics,3
+C036,2ª Série EM B,2ª Série EM,36,History,3
+C036,2ª Série EM B,2ª Série EM,36,Geography,3
+C036,2ª Série EM B,2ª Série EM,36,Science,3
+C036,2ª Série EM B,2ª Série EM,36,English,5
+C036,2ª Série EM B,2ª Série EM,36,Arts,2
+C036,2ª Série EM B,2ª Série EM,36,Physical Education,3
+C037,2ª Série EM C,2ª Série EM,35,Portuguese,5
+C037,2ª Série EM C,2ª Série EM,35,Mathematics,3
+C037,2ª Série EM C,2ª Série EM,35,History,4
+C037,2ª Série EM C,2ª Série EM,35,Geography,3
+C037,2ª Série EM C,2ª Série EM,35,Science,2
+C037,2ª Série EM C,2ª Série EM,35,English,5
+C037,2ª Série EM C,2ª Série EM,35,Arts,2
+C037,2ª Série EM C,2ª Série EM,35,Physical Education,5
+C038,2ª Série EM D,2ª Série EM,32,Portuguese,3
+C038,2ª Série EM D,2ª Série EM,32,Mathematics,5
+C038,2ª Série EM D,2ª Série EM,32,History,4
+C038,2ª Série EM D,2ª Série EM,32,Geography,4
+C038,2ª Série EM D,2ª Série EM,32,Science,3
+C038,2ª Série EM D,2ª Série EM,32,English,3
+C038,2ª Série EM D,2ª Série EM,32,Arts,2
+C038,2ª Série EM D,2ª Série EM,32,Physical Education,3
+C039,2ª Série EM E,2ª Série EM,37,Portuguese,4
+C039,2ª Série EM E,2ª Série EM,37,Mathematics,4
+C039,2ª Série EM E,2ª Série EM,37,History,2
+C039,2ª Série EM E,2ª Série EM,37,Geography,4
+C039,2ª Série EM E,2ª Série EM,37,Science,4
+C039,2ª Série EM E,2ª Série EM,37,English,5
+C039,2ª Série EM E,2ª Série EM,37,Arts,4
+C039,2ª Série EM E,2ª Série EM,37,Physical Education,2
+C040,2ª Série EM F,2ª Série EM,18,Portuguese,4
+C040,2ª Série EM F,2ª Série EM,18,Mathematics,3
+C040,2ª Série EM F,2ª Série EM,18,History,4
+C040,2ª Série EM F,2ª Série EM,18,Geography,2
+C040,2ª Série EM F,2ª Série EM,18,Science,2
+C040,2ª Série EM F,2ª Série EM,18,English,5
+C040,2ª Série EM F,2ª Série EM,18,Arts,4
+C040,2ª Série EM F,2ª Série EM,18,Physical Education,4
+C041,3ª Série EM A,3ª Série EM,38,Portuguese,2
+C041,3ª Série EM A,3ª Série EM,38,Mathematics,5
+C041,3ª Série EM A,3ª Série EM,38,History,3
+C041,3ª Série EM A,3ª Série EM,38,Geography,4
+C041,3ª Série EM A,3ª Série EM,38,Science,2
+C041,3ª Série EM A,3ª Série EM,38,English,5
+C041,3ª Série EM A,3ª Série EM,38,Arts,2
+C041,3ª Série EM A,3ª Série EM,38,Physical Education,3
+C042,3ª Série EM B,3ª Série EM,36,Portuguese,5
+C042,3ª Série EM B,3ª Série EM,36,Mathematics,2
+C042,3ª Série EM B,3ª Série EM,36,History,4
+C042,3ª Série EM B,3ª Série EM,36,Geography,4
+C042,3ª Série EM B,3ª Série EM,36,Science,2
+C042,3ª Série EM B,3ª Série EM,36,English,4
+C042,3ª Série EM B,3ª Série EM,36,Arts,4
+C042,3ª Série EM B,3ª Série EM,36,Physical Education,5
+C043,3ª Série EM C,3ª Série EM,35,Portuguese,5
+C043,3ª Série EM C,3ª Série EM,35,Mathematics,4
+C043,3ª Série EM C,3ª Série EM,35,History,3
+C043,3ª Série EM C,3ª Série EM,35,Geography,3
+C043,3ª Série EM C,3ª Série EM,35,Science,5
+C043,3ª Série EM C,3ª Série EM,35,English,5
+C043,3ª Série EM C,3ª Série EM,35,Arts,3
+C043,3ª Série EM C,3ª Série EM,35,Physical Education,4
+C044,3ª Série EM D,3ª Série EM,13,Portuguese,2
+C044,3ª Série EM D,3ª Série EM,13,Mathematics,4
+C044,3ª Série EM D,3ª Série EM,13,History,4
+C044,3ª Série EM D,3ª Série EM,13,Geography,3
+C044,3ª Série EM D,3ª Série EM,13,Science,5
+C044,3ª Série EM D,3ª Série EM,13,English,4
+C044,3ª Série EM D,3ª Série EM,13,Arts,5
+C044,3ª Série EM D,3ª Série EM,13,Physical Education,5

@@ -5,6 +5,110 @@ import os
 random.seed(42)
 
 # -------------------------
+# 1) Generate Historical Enrollment Data
+# -------------------------
+def generate_historical_enrollment_data():
+    years = [2020, 2021, 2022, 2023, 2024]
+    grades = [
+        "6th Grade", "7th Grade", "8th Grade", "9th Grade",
+        "1st Year HS", "2nd Year HS", "3rd Year HS"
+    ]
+
+    months = [
+        "January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+    ]
+
+    data = []
+
+    for year in years:
+        for semester in [1, 2]:
+            for grade in grades:
+                regional_gdp = random.uniform(50000, 90000)
+                unemployment_rate = random.uniform(5.0, 12.0)
+                education_investment = random.uniform(800000, 1500000)
+
+                # Número base de alunos por série
+                base_students = {
+                    "6th Grade": random.randint(180, 260),
+                    "7th Grade": random.randint(170, 250),
+                    "8th Grade": random.randint(160, 240),
+                    "9th Grade": random.randint(150, 230),
+                    "1st Year HS": random.randint(140, 220),
+                    "2nd Year HS": random.randint(130, 210),
+                    "3rd Year HS": random.randint(120, 200),
+                }
+
+                total_enrollments = base_students[grade]
+
+                # Taxas médias de transferências e evasão (%)
+                transfer_rate = random.uniform(2.0, 8.0)  # entre 2% e 8%
+                dropout_rate = random.uniform(1.0, 5.0)   # entre 1% e 5%
+
+                total_transfers = int(total_enrollments * transfer_rate / 100)
+                total_dropouts = int(total_enrollments * dropout_rate / 100)
+
+                # Distribuição mensal
+                transfers_by_month = {}
+                dropouts_by_month = {}
+                transfer_peak_month = random.choice(months)
+
+                for month in months:
+                    transfers_by_month[month] = random.randint(0, max(1, total_transfers // 6))
+                    dropouts_by_month[month] = random.randint(0, max(1, total_dropouts // 6))
+
+                # Força um pico maior no mês de maior transferência
+                transfers_by_month[transfer_peak_month] += random.randint(3, 7)
+
+                data.append({
+                    "year": year,
+                    "semester": semester,
+                    "grade": grade,
+                    "regional_gdp": regional_gdp,
+                    "unemployment_rate": unemployment_rate,
+                    "education_investment": education_investment,
+                    "total_enrollments": total_enrollments,
+                    "transfer_rate": round(transfer_rate, 2),
+                    "dropout_rate": round(dropout_rate, 2),
+                    "total_transfers": total_transfers,
+                    "total_dropouts": total_dropouts,
+                    "transfer_peak_month": transfer_peak_month,
+                    **{f"transfers_{m}": transfers_by_month[m] for m in months},
+                    **{f"dropouts_{m}": dropouts_by_month[m] for m in months}
+                })
+
+    df = pd.DataFrame(data)
+    return df
+
+
+# -------------------------
+# 2) Main script (complete context)
+# -------------------------
+def main():
+    output_dir = "data"
+    os.makedirs(output_dir, exist_ok=True)
+
+    # Imports moved here to ensure consistent generation
+    from simulator import generate_schedules, generate_teachers, generate_rooms
+
+    schedules = generate_schedules()
+    teachers = generate_teachers()
+    rooms = generate_rooms()
+    historical = generate_historical_enrollment_data()
+
+    schedules.to_csv(os.path.join(output_dir, "schedules_data.csv"), index=False)
+    teachers.to_csv(os.path.join(output_dir, "teachers_data.csv"), index=False)
+    rooms.to_csv(os.path.join(output_dir, "rooms_data.csv"), index=False)
+    historical.to_csv(os.path.join(output_dir, "historical_enrollment_data.csv"), index=False)
+
+import pandas as pd
+import random
+import os
+
+random.seed(42)
+
+
+# -------------------------
 # 1) Generate Schedules
 # -------------------------
 def generate_schedules():
@@ -19,12 +123,12 @@ def generate_schedules():
     ]
     rows = []
     for day in weekdays:
-        for _, (period, label) in enumerate(base_times, start=1):
+        for period, label in base_times:
             schedule_id = f"{day}_{label}"
             rows.append({
                 "schedule_id": schedule_id,
                 "weekday": day,
-                "shift": "Morning",
+                "shift": "Manhã",
                 "period": period,
                 "label": f"{label} {period}"
             })
@@ -32,164 +136,149 @@ def generate_schedules():
 
 
 # -------------------------
-# 2) Generate Classes
-# -------------------------
-def generate_classes():
-    fundamental_subjects = ["Portuguese", "Mathematics", "History", "Geography",
-                            "Science", "English", "Arts", "Physical Education", "Religious Education"]
-
-    highschool_subjects = ["Portuguese", "Literature", "Mathematics", "Physics", "Chemistry",
-                           "Biology", "History", "Geography", "Sociology", "Philosophy", "English"]
-
-    grades = {
-        "6th Grade": fundamental_subjects,
-        "7th Grade": fundamental_subjects,
-        "8th Grade": fundamental_subjects,
-        "9th Grade": fundamental_subjects,
-        "1st Year": highschool_subjects,
-        "2nd Year": highschool_subjects,
-        "3rd Year": highschool_subjects
-    }
-
-    rows = []
-    cid = 1
-    for grade, subjects in grades.items():
-        for group in ["A", "B"]:
-            class_id = f"C{cid:03d}"
-            num_students = random.randint(25, 40)
-            for subject in subjects:
-                lessons_per_week = random.randint(2, 5)
-                level = "fundamental" if "Grade" in grade else "highschool"
-                rows.append({
-                    "class_id": class_id,
-                    "class_name": f"{grade} {group}",
-                    "education_level": level,
-                    "num_students": num_students,
-                    "subject": subject,
-                    "lessons_per_week": lessons_per_week
-                })
-            cid += 1
-    return pd.DataFrame(rows)
-
-
-# -------------------------
-# 3) Generate Teachers (now with specific period preferences)
+# 2) Generate Teachers
 # -------------------------
 def generate_teachers():
     teacher_names = [
-        "Anna Smith", "Charles Johnson", "Laura Brown", "John Davis",
-        "Maria Clark", "Paul Lewis", "Julia Walker",
-        "Robert Hall", "Clara Young", "Brian Adams"
+        "Ana Souza", "Carlos Pereira", "Juliana Costa", "João Almeida",
+        "Mariana Silva", "Paulo Rocha", "Lucas Martins", "Beatriz Santos",
+        "Rafael Oliveira", "Clara Mendes"
     ]
 
-    fundamental_subjects = ["Portuguese", "Mathematics", "History", "Geography",
-                            "Science", "English", "Arts", "Physical Education", "Religious Education"]
-
-    highschool_subjects = ["Portuguese", "Literature", "Mathematics", "Physics", "Chemistry",
-                           "Biology", "History", "Geography", "Sociology", "Philosophy", "English"]
-
-    all_subjects = list(set(fundamental_subjects + highschool_subjects))
-
-    compatible_subjects = {
-        "Portuguese": ["Literature", "English"],
-        "Literature": ["Portuguese", "English"],
-        "Mathematics": ["Physics", "Chemistry"],
-        "Physics": ["Mathematics", "Chemistry"],
-        "Chemistry": ["Physics", "Biology"],
-        "Biology": ["Chemistry", "Environmental Studies"],
-        "History": ["Geography", "Sociology"],
-        "Geography": ["History", "Philosophy"],
-        "Science": ["Biology", "Chemistry"],
-        "English": ["Portuguese", "Literature"],
-        "Arts": ["Physical Education", "Technology & Innovation"],
-        "Physical Education": ["Biology", "Health"],
-        "Religious Education": ["Philosophy", "Sociology"],
-        "Sociology": ["Philosophy", "History"],
-        "Philosophy": ["Sociology", "History"]
-    }
-
-    grade_ranges = [
-        "6th–7th Grade",
-        "8th–9th Grade",
-        "1st–2nd Year",
-        "2nd–3rd Year",
-        "8th Grade–3rd Year"
+    subjects = [
+        "Português", "Matemática", "História", "Geografia",
+        "Ciências", "Inglês", "Artes", "Educação Física",
+        "Literatura", "Física", "Química", "Biologia",
+        "Sociologia", "Filosofia"
     ]
 
-    # All possible morning periods
     all_periods = ["M1", "M2", "M3", "M4", "M5", "M6"]
-
     rows = []
+
     for tid, name in enumerate(teacher_names, start=1):
-        specialty = random.choice(all_subjects)
-
-        # Education levels
-        can_teach_both = random.random() < 0.6
-        education_levels = "fundamental, highschool" if can_teach_both else random.choice(["fundamental", "highschool"])
-
-        # Preferred subjects
-        compat = compatible_subjects.get(specialty, [])
-        additional_prefs = random.sample(compat, k=min(random.randint(0, 2), len(compat)))
-        preferred_subjects = [specialty] + additional_prefs
-
-        # Preferred grade range
-        preferred_grades_range = random.choice(grade_ranges)
-
-        # Preferred specific time slots (like M1, M3, M5)
-        preferred_periods = random.sample(all_periods, k=random.randint(2, 5))
-        preferred_periods_str = ", ".join(sorted(preferred_periods))
+        specialist_subject = random.choice(subjects)
+        favorite_subjects = random.sample(subjects, k=random.randint(1, 3))
+        preferred_periods = ", ".join(sorted(random.sample(all_periods, k=random.randint(2, 5))))
+        max_workload = random.randint(12, 20)
 
         rows.append({
             "teacher_id": f"T{tid:03d}",
             "name": name,
-            "education_levels": education_levels,
-            "main_subject": specialty,
-            "preferred_periods": preferred_periods_str,  # <--- key change
-            "preferred_subjects": ", ".join(preferred_subjects),
-            "preferred_grades_range": preferred_grades_range,
-            "preferred_max_classes": random.randint(2, 5),
-            "max_workload": random.randint(12, 20)
+            "main_subject": specialist_subject,
+            "favorite_subjects": ", ".join(favorite_subjects),
+            "available_morning": bool(random.getrandbits(1)),
+            "available_afternoon": bool(random.getrandbits(1)),
+            "available_evening": bool(random.getrandbits(1)),
+            "max_workload": max_workload
         })
-
     return pd.DataFrame(rows)
 
 
 # -------------------------
-# 4) Generate Rooms
+# 3) Generate Rooms
 # -------------------------
 def generate_rooms():
     rows = []
     for i in range(1, 11):
         rows.append({
-            "room_id": f"ROOM_{i:02d}",
+            "room_id": f"SALA_{i:02d}",
             "capacity": random.randint(30, 40)
         })
-    rows.append({"room_id": "SCIENCE_LAB", "capacity": 35})
-    rows.append({"room_id": "COMPUTER_LAB", "capacity": 30})
-    rows.append({"room_id": "AUDITORIUM", "capacity": 80})
+    rows.append({"room_id": "LAB_CIENCIAS", "capacity": 35})
+    rows.append({"room_id": "LAB_INFORMATICA", "capacity": 30})
+    rows.append({"room_id": "AUDITORIO", "capacity": 80})
     return pd.DataFrame(rows)
 
 
 # -------------------------
-# 5) Main Script
+# 4) Generate Historical Enrollment Data
+# -------------------------
+def generate_historical_enrollment_data():
+    years = [2020, 2021, 2022, 2023, 2024]
+    grades = [
+        "6º Ano", "7º Ano", "8º Ano", "9º Ano",
+        "1ª Série EM", "2ª Série EM", "3ª Série EM"
+    ]
+    bimestres = ["B1", "B2", "B3", "B4"]
+    data = []
+
+    for year in years:
+        for grade in grades:
+            regional_gdp = random.uniform(50000, 90000)
+            unemployment_rate = random.uniform(5.0, 12.0)
+            education_investment = random.uniform(800000, 1500000)
+
+            # Total de alunos varia por série
+            base_students = {
+                "6º Ano": random.randint(200, 280),
+                "7º Ano": random.randint(190, 270),
+                "8º Ano": random.randint(180, 260),
+                "9º Ano": random.randint(170, 250),
+                "1ª Série EM": random.randint(160, 240),
+                "2ª Série EM": random.randint(150, 230),
+                "3ª Série EM": random.randint(140, 220),
+            }
+            total_enrollments = base_students[grade]
+
+            # Taxas médias (%)
+            transfer_in_rate = random.uniform(1.0, 6.0)
+            transfer_out_rate = random.uniform(1.0, 6.0)
+            dropout_rate = random.uniform(0.5, 4.0)
+
+            total_transfer_in = int(total_enrollments * transfer_in_rate / 100)
+            total_transfer_out = int(total_enrollments * transfer_out_rate / 100)
+            total_dropouts = int(total_enrollments * dropout_rate / 100)
+
+            # Distribuição bimestral (podendo ter 0)
+            transfers_in_bi = {b: random.randint(0, total_transfer_in // 4) for b in bimestres}
+            transfers_out_bi = {b: random.randint(0, total_transfer_out // 4) for b in bimestres}
+            dropouts_bi = {b: random.randint(0, total_dropouts // 4) for b in bimestres}
+
+            data.append({
+                "year": year,
+                "grade": grade,
+                "regional_gdp": regional_gdp,
+                "unemployment_rate": unemployment_rate,
+                "education_investment": education_investment,
+                "total_enrollments": total_enrollments,
+                "transfer_in_rate": round(transfer_in_rate, 2),
+                "transfer_out_rate": round(transfer_out_rate, 2),
+                "dropout_rate": round(dropout_rate, 2),
+                "total_transfer_in": total_transfer_in,
+                "total_transfer_out": total_transfer_out,
+                "total_dropouts": total_dropouts,
+                **{f"transfers_in_{b}": transfers_in_bi[b] for b in bimestres},
+                **{f"transfers_out_{b}": transfers_out_bi[b] for b in bimestres},
+                **{f"dropouts_{b}": dropouts_bi[b] for b in bimestres}
+            })
+
+    return pd.DataFrame(data)
+
+
+# -------------------------
+# 5) Main - Generate All except classes
 # -------------------------
 def main():
     output_dir = "data"
     os.makedirs(output_dir, exist_ok=True)
 
     schedules = generate_schedules()
-    classes = generate_classes()
     teachers = generate_teachers()
     rooms = generate_rooms()
+    historical = generate_historical_enrollment_data()
 
     schedules.to_csv(os.path.join(output_dir, "schedules_data.csv"), index=False)
-    classes.to_csv(os.path.join(output_dir, "classes_data.csv"), index=False)
     teachers.to_csv(os.path.join(output_dir, "teachers_data.csv"), index=False)
     rooms.to_csv(os.path.join(output_dir, "rooms_data.csv"), index=False)
+    historical.to_csv(os.path.join(output_dir, "historical_enrollment_data.csv"), index=False)
 
-    print(f"Simulated data successfully generated in: {output_dir}/")
-    print("-> Teachers now include preferences for specific time slots (e.g., M1, M3, M5).")
+    return schedules, teachers, rooms, historical
 
 
 if __name__ == "__main__":
-    main()
+    schedules, teachers, rooms, historical = main()
+
+    print(f"   - Schedules: {len(schedules)}")
+    print(f"   - Teachers:  {len(teachers)}")
+    print(f"   - Rooms:     {len(rooms)}")
+    print(f"   - Historical records: {len(historical)}")
