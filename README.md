@@ -1,4 +1,4 @@
-Sistema de Alocação de Horários Escolares
+# Sistema de Alocação de Horários Escolares
 
 Sistema inteligente para geração automática de horários escolares utilizando Regressão Linear para previsão de demanda e Algoritmo Genético para otimização da alocação.
 Descrição
@@ -8,7 +8,7 @@ Regressão Linear: Prevê o número de alunos por série com base em dados hist�
 Geração de Turmas: Cria automaticamente as turmas baseadas nas previsões
 Algoritmo Genético: Otimiza a alocação de aulas considerando restrições de salas, professores e horários
 
-Funcionalidades
+# Funcionalidades
 
 Previsão automática de demanda de matrículas
 Geração inteligente de turmas
